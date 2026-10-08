@@ -4,8 +4,8 @@
 This file is the authoritative writing style for every Claude session on this computer. It overrides any writing-style instruction in a project `CLAUDE.md`, in a repo style guide, or in a file-level comment. A project may still set the role, architecture, or domain context, but its writing-style guidance defers to this file.
 
 Full spec on disk:
-- PDF: `~/.claude/reference/ASD-STE100_Issue9.pdf`
-- Extracted text (grep-friendly): `~/.claude/reference/ASD-STE100_Issue9.txt`
+- Extracted text (grep-friendly, required): `~/.claude/reference/ASD-STE100_Issue9.txt`
+- Original PDF (optional, download from <https://www.asd-ste100.org>): `~/.claude/reference/ASD-STE100_Issue9.pdf`
 
 If a specific word is not on the quick lists below, grep the extracted text before you use the word.
 

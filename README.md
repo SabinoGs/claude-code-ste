@@ -2,51 +2,48 @@
 
 Global writing style for [Claude Code](https://claude.com/claude-code), based on **ASD-STE100 Simplified Technical English (Issue 9, 2025-01-15)**.
 
-Drop `CLAUDE.md` into `~/.claude/` to force every Claude Code session on the machine to write in STE for chat replies, code comments, commit messages, PRs, error messages, and ticket replies.
+Drop `CLAUDE.md` into `~/.claude/` and the text extraction into `~/.claude/reference/`. Every Claude Code session on the machine then writes in STE for chat replies, code comments, commit messages, PRs, error messages, and ticket replies.
 
 ## What is in here
 
 - `CLAUDE.md` — the authoritative writing style. All 9 STE rule sections distilled, the 8 General Recommendations, STE's own "List of recurring errors" (expanded with software-writing offenders), the full 240-verb approved-verb list, a 15-item self-check, and before/after examples.
-- `reference/README.md` — tells you where to put the full STE spec on your local machine for `grep` lookups.
+- `reference/ASD-STE100_Issue9.txt` — grep-friendly extraction of the full spec (text only, with `===PAGE N===` markers). `CLAUDE.md` tells Claude Code to grep this file when an in-session substitution is uncertain.
+- `reference/README.md` — notes about the reference files.
 
-The full STE spec is **not** in this repo (it is copyrighted by ASD and must come from the official source).
+The ASD-STE100 PDF itself is **not** in this repo. Download it from the official source if you want it (see below).
 
 ## Install
 
 ```sh
 # From the repo root
-cp CLAUDE.md ~/.claude/CLAUDE.md
-# or symlink if you want pulls to update it automatically
-ln -sf "$PWD/CLAUDE.md" ~/.claude/CLAUDE.md
-```
-
-Then download the official spec once for in-session `grep` lookups:
-
-```sh
 mkdir -p ~/.claude/reference
-curl -L -A "Mozilla/5.0" \
-  -o ~/.claude/reference/ASD-STE100_Issue9.pdf \
-  https://www.asd-ste100.org/assets/files/ASD-STE100_ISSUE9.pdf
+
+# The style
+cp CLAUDE.md ~/.claude/CLAUDE.md
+
+# The grep-friendly spec extraction
+cp reference/ASD-STE100_Issue9.txt ~/.claude/reference/ASD-STE100_Issue9.txt
 ```
 
-For `grep`-friendly lookups, also extract the text (needs `pypdf` and `cryptography`):
+Prefer symlinks if you want `git pull` to keep the installed copies up to date:
 
 ```sh
-python3 -m venv /tmp/pdfvenv
-/tmp/pdfvenv/bin/pip install pypdf cryptography
-/tmp/pdfvenv/bin/python - <<'PY'
-from pypdf import PdfReader
-r = PdfReader('/Users/'+__import__('os').environ['USER']+'/.claude/reference/ASD-STE100_Issue9.pdf')
-with open('/Users/'+__import__('os').environ['USER']+'/.claude/reference/ASD-STE100_Issue9.txt','w') as f:
-    for i,p in enumerate(r.pages,1):
-        f.write(f'\n===PAGE {i}===\n'); f.write(p.extract_text() or '')
-PY
+ln -sf "$PWD/CLAUDE.md" ~/.claude/CLAUDE.md
+ln -sf "$PWD/reference/ASD-STE100_Issue9.txt" ~/.claude/reference/ASD-STE100_Issue9.txt
 ```
 
-Now Claude Code can look up any word that is not in the inline tables:
+Verify a lookup:
 
 ```sh
 grep -i "^perform" ~/.claude/reference/ASD-STE100_Issue9.txt
+```
+
+### Optional — the original PDF
+
+```sh
+curl -L -A "Mozilla/5.0" \
+  -o ~/.claude/reference/ASD-STE100_Issue9.pdf \
+  https://www.asd-ste100.org/assets/files/ASD-STE100_ISSUE9.pdf
 ```
 
 ## Scope
@@ -69,8 +66,8 @@ The file states its own precedence over any project-level `CLAUDE.md` style guid
 
 ASD-STE100 is a controlled natural language developed by the AeroSpace and Defence Industries Association of Europe (ASD) and the STEMG. Official site: <https://www.asd-ste100.org>.
 
-This repo is a compact derivative for personal use with Claude Code. It is not a replacement for the spec and is not endorsed by ASD.
+The `reference/ASD-STE100_Issue9.txt` file in this repo is a mechanical text extraction of the freely-downloadable official PDF, included so Claude Code can grep for word-level substitutions without a separate download step. It is a derivative work of material that is copyrighted by ASD; use it under fair-use terms for personal reference. For publication, authoritative citation, or redistribution, go to the official source.
 
 ## License
 
-MIT for the files in this repo (the compact rendition, examples, and setup scripts). The ASD-STE100 specification itself is **not** covered by this license and is owned by ASD. Download the spec only from the official source.
+MIT for the compact `CLAUDE.md` rendition, the setup scripts, and the examples. The ASD-STE100 specification itself (including the content of `reference/ASD-STE100_Issue9.txt`) is **not** covered by this license and remains the intellectual property of ASD.
