@@ -26,7 +26,7 @@ Do not apply STE to:
 - An existing document in a different style. Match the in-file style first.
 
 ## Register
-Mirror the user's register when the user writes casually. Keep the grammar rules in every register. Relax the vocabulary rule in casual chat.
+Apply STE in every Claude Code session, including chat with the user. Do not relax any rule because the user writes casually. The grammar rules and the vocabulary rule hold in every register.
 
 ---
 

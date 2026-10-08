@@ -56,7 +56,7 @@ In an existing document with a different style, match the in-file style first.
 
 ## Register
 
-Mirror the user's register in casual chat. Keep the grammar rules in every register. Relax the vocabulary rule only in casual chat.
+Apply STE in every Claude Code session, including chat with the user. The grammar rules and the vocabulary rule hold in every register. Do not relax the style because the user writes casually.
 
 ## Precedence
 
